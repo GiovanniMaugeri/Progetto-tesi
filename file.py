@@ -15,8 +15,8 @@ def predict(input,network):
         [input_feature,expected_output] = polish_input(input,i)
         
         out = forward_prop(network,input_feature)
-        err += abs(expected_output-round(out[0][0]))
-    return (1-err/len(input))
+        err += mse(expected_output,round(out[0][0]))
+    return (err/len(input))
 
 def polish_input(input_row,index):
         #input = features (first column)
@@ -110,19 +110,13 @@ for k in range(epoches):
         
     # calculating validation set error every 10 epoches
     if k%10 == 0 :
-        err2 = 0
-        for j in range(len(validation)):
-                [input,expected_output2] = polish_input(validation,j)
-
-                out2 = forward_prop(network,input)
-                
-                err2 += mse(expected_output2,out2[0][0])
-        errors_validation.append(err2/len(validation)*100)
+        err2 = predict(validation,network)
+        errors_validation.append(err2*100)
         errors_training.append(err/len(training)*100)
-        print(k,err2/len(validation))
+        print(k,err2)
         print(err/len(training))
 
-print(predict(testing,network))
+print(1-predict(testing,network))
 plt.plot(errors_validation)
 plt.plot(errors_training)
 plt.ylabel(' error')
