@@ -108,7 +108,7 @@ for k in range(epoches):
         #back propagation
         back_prop(network,grad,0.14)
         
-    # calculating validation set error every 50 epoches
+    # calculating validation set error every 10 epoches
     if k%10 == 0 :
         err2 = 0
         for j in range(len(validation)):
