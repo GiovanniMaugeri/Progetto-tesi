@@ -120,6 +120,8 @@ print(1-predict(testing,network))
 plt.plot(errors_validation)
 plt.plot(errors_training)
 plt.ylabel(' error')
+plt.ylabel(' 10 epoches')
+plt.legend(['Validation', 'Training'])
 plt.show()
 
 
